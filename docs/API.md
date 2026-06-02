@@ -1,6 +1,6 @@
 # API Reference
 
-All protected endpoints expect a Firebase bearer token. In local development with `DJANGO_DEBUG=True`, use `Authorization: Bearer demo-token`.
+All protected endpoints expect a Firebase bearer token.
 
 ## Profile
 

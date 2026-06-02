@@ -57,7 +57,7 @@ const fallbackExams = [
 ];
 
 const defaultProfile = {
-  name: "Demo Candidate",
+  name: "CareerSync User",
   skills: ["Python", "SQL", "HTML", "CSS"],
   education: "B.Tech Computer Science",
   target_role: "Junior Software Engineer",
@@ -65,10 +65,9 @@ const defaultProfile = {
 };
 
 function App() {
-  const demoPage = new URLSearchParams(window.location.search).get("demo");
-  const [isLoggedIn, setIsLoggedIn] = useState(Boolean(demoPage));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authUser, setAuthUser] = useState(null);
-  const [page, setPage] = useState(demoPage || "dashboard");
+  const [page, setPage] = useState("dashboard");
   const [profile, setProfile] = useState(defaultProfile);
   const [dashboard, setDashboard] = useState(null);
   const [analysis, setAnalysis] = useState(null);
@@ -76,11 +75,6 @@ function App() {
   const [status, setStatus] = useState("");
 
   useEffect(() => {
-    if (demoPage) {
-      localStorage.setItem("careersync_token", "demo-token");
-      return undefined;
-    }
-
     return observeAuth(async (user) => {
       setAuthUser(user);
       setIsLoggedIn(Boolean(user));
@@ -90,7 +84,7 @@ function App() {
         localStorage.removeItem("careersync_token");
       }
     });
-  }, [demoPage]);
+  }, []);
 
   useEffect(() => {
     if (!isLoggedIn) return;
@@ -112,7 +106,7 @@ function App() {
       setAnalysis(analysisData);
       setStatus("Connected to Django API");
     } catch (error) {
-      setStatus("Using demo data until the backend is running");
+      setStatus("Backend API is not reachable. Start or deploy the Django server.");
     }
   }
 
@@ -215,7 +209,7 @@ function LoginPage({ exams, setStatus }) {
           <article className={`exam-card ${exam.color}`} key={exam.id}>
             <span>{exam.type}</span>
             <h2>{exam.name}</h2>
-            <p>{exam.duration} · {exam.level}</p>
+            <p>{exam.duration} | {exam.level}</p>
           </article>
         ))}
       </section>
@@ -456,7 +450,7 @@ function Materials({ exams }) {
             <h3>Topics</h3>
             <ul>{exam.topics.map((topic) => <li key={topic}>{topic}</li>)}</ul>
             <h3>Materials</h3>
-            <ul>{exam.materials.map((item) => <li key={item.title}>{item.title} · {item.type} · {item.duration}</li>)}</ul>
+            <ul>{exam.materials.map((item) => <li key={item.title}>{item.title} | {item.type} | {item.duration}</li>)}</ul>
           </article>
         ))}
       </section>

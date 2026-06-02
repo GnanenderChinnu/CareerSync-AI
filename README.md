@@ -18,7 +18,7 @@ The first version stays intentionally small: it works like a real platform, but 
 - Database: PostgreSQL
 - Web dashboard: React + Vite
 - Mobile app: Flutter
-- Authentication: Firebase Authentication with local demo-token support
+- Authentication: Firebase Authentication
 - AI: Gemini API integration with mock fallback
 
 ## Project Structure
@@ -34,29 +34,6 @@ CareerSync-AI/
 `-- README.md
 ```
 
-## Static Web Demo
-
-The hosted version is intended for recruiters and portfolio visitors to preview the CareerSync AI web dashboard. It does not require a running local server to view the frontend.
-
-Live static demo:
-
-https://gnanenderchinnu.github.io/CareerSync-AI/
-
-Main web dashboard files:
-
-```text
-docs/index.html
-docs/styles.css
-docs/app.js
-```
-
-The static demo supports:
-
-- Firebase login/signup screen.
-- Dashboard preview.
-- Profile, resume analysis, interview prep, and exam material pages.
-- API-ready frontend structure for the Django backend.
-
 ## Backend Setup
 
 ```bash
@@ -67,12 +44,6 @@ pip install -r requirements.txt
 copy .env.example .env
 python manage.py migrate
 python manage.py runserver
-```
-
-Update `.env` with your PostgreSQL credentials. For local API testing, use:
-
-```text
-Authorization: Bearer demo-token
 ```
 
 If PostgreSQL is not installed yet, set this in `backend-django/.env` for local testing:
@@ -107,6 +78,18 @@ flutter run
 ```
 
 Before production login, run `flutterfire configure` and add Firebase configuration.
+
+## Production Deployment
+
+Recommended production setup:
+
+- Deploy `backend-django/` on Render using `render.yaml`.
+- Deploy `web-react/` on Vercel using `web-react/vercel.json`.
+- Add the deployed backend URL to the frontend as `VITE_API_BASE_URL`.
+- Add the Vercel frontend URL to backend `CORS_ALLOWED_ORIGINS`.
+- Add Firebase and Gemini environment variables in the hosting dashboards.
+
+The hosted frontend requires a deployed Django API for authenticated dashboard, resume, and interview features.
 
 ## API Endpoints
 
@@ -170,9 +153,8 @@ Screenshots are available in `screenshots/`:
 
 ## Future Scope
 
-- Real PDF/DOCX resume parsing
-- Deployed Django backend for production API access
 - Admin dashboard for exam content management
+- Deployed backend observability and logging
 - Practice tests with timers and scoring
 - Learning path recommendations
 - Payment or subscription module

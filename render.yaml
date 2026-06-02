@@ -1,0 +1,47 @@
+services:
+  - type: web
+    name: careersync-ai-api
+    runtime: docker
+    rootDir: backend-django
+    plan: free
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_ALLOWED_HOSTS
+        sync: false
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DB_NAME
+        fromDatabase:
+          name: careersync-ai-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: careersync-ai-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: careersync-ai-db
+          property: password
+      - key: DB_HOST
+        fromDatabase:
+          name: careersync-ai-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: careersync-ai-db
+          property: port
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: AI_PROVIDER
+        value: gemini
+      - key: AI_MODEL
+        value: gemini-2.5-flash
+      - key: AI_API_KEY
+        sync: false
+
+databases:
+  - name: careersync-ai-db
+    plan: free

@@ -9,8 +9,6 @@ from rest_framework import authentication, exceptions
 class FirebaseAuthentication(authentication.BaseAuthentication):
     """
     Firebase bearer-token authentication.
-    In local development, set Authorization: Bearer demo-token to use a demo user.
-    TODO: Add Firebase project config and service account path in .env for production.
     """
 
     def authenticate(self, request):
@@ -19,13 +17,6 @@ class FirebaseAuthentication(authentication.BaseAuthentication):
             return None
 
         token = header.replace("Bearer ", "", 1).strip()
-        if token == "demo-token" and settings.DEBUG:
-            user, _ = User.objects.get_or_create(
-                username="demo@careersync.ai",
-                defaults={"email": "demo@careersync.ai", "first_name": "Demo"},
-            )
-            return user, None
-
         try:
             import firebase_admin
             from firebase_admin import auth, credentials

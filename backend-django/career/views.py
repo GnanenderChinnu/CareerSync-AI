@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 
 from .exam_content import EXAMS
 from .models import AIFeedback, InterviewSession, Resume, SkillProgress, UserProfile
+from .resume_parser import extract_resume_text
 from .serializers import AIFeedbackSerializer, ResumeSerializer, UserProfileSerializer
 from .services import analyze_career_readiness, generate_interview_questions
 
@@ -32,7 +33,20 @@ class ResumeUploadView(APIView):
     parser_classes = [parsers.MultiPartParser, parsers.FormParser]
 
     def post(self, request):
-        serializer = ResumeSerializer(data=request.data)
+        data = request.data.copy()
+        if request.FILES.get("file") and not data.get("extracted_text"):
+            try:
+                data["extracted_text"] = extract_resume_text(request.FILES["file"])
+            except Exception:
+                return Response(
+                    {"detail": "Could not read resume text. Upload a valid PDF, DOCX, or TXT file."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        if not request.FILES.get("file"):
+            return Response({"detail": "Resume file is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = ResumeSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         resume = serializer.save(user=request.user)
         profile = getattr(request.user, "career_profile", None)
