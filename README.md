@@ -4,6 +4,12 @@ CareerSync AI is a realistic MVP for IT career preparation. It helps freshers an
 
 The first version stays intentionally small: it works like a real platform, but uses compact sample content instead of a huge database.
 
+## Live Demo
+
+[Open CareerSync AI Web Dashboard](https://gnanenderchinnu.github.io/CareerSync-AI/)
+
+Note: the hosted web dashboard is the frontend deployment. Full authenticated backend features require the Django API to be running locally or deployed separately.
+
 ## Exams
 
 | Exam | Focus | MVP Content |
