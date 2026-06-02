@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.venv*/
+venv/
+.env
+db.sqlite3
+media/
+staticfiles/
+*.log
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+ios/Pods/
+
+# IDE and OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
