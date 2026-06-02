@@ -18,21 +18,45 @@ The first version stays intentionally small: it works like a real platform, but 
 - Database: PostgreSQL
 - Web dashboard: React + Vite
 - Mobile app: Flutter
-- Authentication: Firebase Authentication placeholder with local demo token
-- AI: OpenAI/Gemini placeholder service with mock fallback
+- Authentication: Firebase Authentication with local demo-token support
+- AI: Gemini API integration with mock fallback
 
 ## Project Structure
 
 ```text
 CareerSync-AI/
-├── backend-django/
-├── mobile-flutter/
-├── web-react/
-├── docs/
-├── screenshots/
-├── architecture/
-└── README.md
+|-- backend-django/
+|-- mobile-flutter/
+|-- web-react/
+|-- docs/
+|-- screenshots/
+|-- architecture/
+`-- README.md
 ```
+
+## Static Web Demo
+
+The hosted version is intended for recruiters and portfolio visitors to preview the CareerSync AI web dashboard. It does not require a running local server to view the frontend.
+
+Live static demo:
+
+https://gnanenderchinnu.github.io/CareerSync-AI/
+
+Main web dashboard files:
+
+```text
+web-react/src/main.jsx
+web-react/src/styles.css
+web-react/src/firebase.js
+web-react/src/api.js
+```
+
+The static demo supports:
+
+- Firebase login/signup screen.
+- Dashboard preview.
+- Profile, resume analysis, interview prep, and exam material pages.
+- API-ready frontend structure for the Django backend.
 
 ## Backend Setup
 
@@ -138,17 +162,17 @@ If `AI_API_KEY` is missing or the Gemini call fails, it returns mock responses s
 
 ## Screenshots
 
-Add screenshots to `screenshots/` after running the apps:
+Screenshots are available in `screenshots/`:
 
 - Web dashboard
 - Resume analysis
 - Interview preparation
-- Flutter dashboard
+- Exam materials
 
 ## Future Scope
 
 - Real PDF/DOCX resume parsing
-- Real OpenAI or Gemini API integration
+- Deployed Django backend for production API access
 - Admin dashboard for exam content management
 - Practice tests with timers and scoring
 - Learning path recommendations
