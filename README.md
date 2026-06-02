@@ -45,10 +45,9 @@ https://gnanenderchinnu.github.io/CareerSync-AI/
 Main web dashboard files:
 
 ```text
-web-react/src/main.jsx
-web-react/src/styles.css
-web-react/src/firebase.js
-web-react/src/api.js
+docs/index.html
+docs/styles.css
+docs/app.js
 ```
 
 The static demo supports:
